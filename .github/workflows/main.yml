@@ -25,11 +25,12 @@ jobs:
 
       - name: Run Linter
         run: |
-          find ./giftlink-backend -name app.js -exec jshint --nocomma {} +
-          find ./giftlink-backend -name auth.js -exec jshint --nocomma {} +
-          find ./giftlink-backend -name giftRoutes.js -exec jshint --nocomma {} +
-          find ./giftlink-backend -name searchRoutes.js -exec jshint --nocomma {} +
-          echo "Linted all the js files successfully"
+          echo '{ "nocomma": true }' > jshint-config.json
+          find ./giftlink-backend -name app.js -exec jshint --config jshint-config.json {} +
+          find ./giftlink-backend -name auth.js -exec jshint --config jshint-config.json {} +
+          find ./giftlink-backend -name giftRoutes.js -exec jshint --config jshint-config.json {} +
+          find ./giftlink-backend -name searchRoutes.js -exec jshint --config jshint-config.json {} +
+          echo "Linted all the JS files successfully"
 
   client_build:
     name: Build client
