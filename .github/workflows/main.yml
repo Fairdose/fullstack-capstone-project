@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Linter
         run: |
-          echo '{ "nocomma": true }' > jshint-config.json
+          echo '{ "esversion": 8, "asi": true, "node": true }' > jshint-config.json
           find ./giftlink-backend -name app.js -exec jshint --config jshint-config.json {} +
           find ./giftlink-backend -name auth.js -exec jshint --config jshint-config.json {} +
           find ./giftlink-backend -name giftRoutes.js -exec jshint --config jshint-config.json {} +
