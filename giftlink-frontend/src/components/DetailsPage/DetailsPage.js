@@ -3,9 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './DetailsPage.css';
 import {urlConfig} from "../../config";
 
-const navigate = useNavigate();
-
 function DetailsPage() {
+    const navigate = useNavigate();
     const { productId } = useParams();
     const [gift, setGift] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -40,7 +39,7 @@ function DetailsPage() {
 		// Task 3: Scroll to top on component mount
 		window.scrollTo(0, 0);
 
-    }, [productId]);
+    }, [productId, navigate]);
 
 
     const handleBackClick = () => {
