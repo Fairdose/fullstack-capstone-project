@@ -8,8 +8,10 @@ import SearchPage from './components/SearchPage/SearchPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
+
+const navigate = useNavigate();
+
 function App() {
-    const navigate = useNavigate();
     return (
         <>
             <Navbar/>
