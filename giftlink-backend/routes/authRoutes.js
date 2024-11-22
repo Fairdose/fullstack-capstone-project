@@ -28,6 +28,11 @@ router.post('/register', async (req, res) => {
         //Task 3: Check for existing email
         const existingEmail = await collection.findOne({ email: req.body.email });
 
+        if (existingEmail) {
+            logger.error('Email id already exists');
+            return res.status(400).json({ error: 'Email id already exists' });
+        }
+
         const salt = await bcryptjs.genSalt(10);
         const hash = await bcryptjs.hash(req.body.password, salt);
         const email = req.body.email;
@@ -42,7 +47,7 @@ router.post('/register', async (req, res) => {
         });
 
 
-        // {{insert code here}} //Task 5: Create JWT authentication with user._id as payload
+        //Task 5: Create JWT authentication with user._id as payload
         const payload = {
             user: {
                 id: newUser.insertedId,
@@ -55,7 +60,45 @@ router.post('/register', async (req, res) => {
 
         res.json({ authToken, email });
     } catch (e) {
+        logger.error(e);
         return res.status(500).send('Internal server error');
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection("users");
+        const theUser = await collection.findOne({ email: req.body.email });
+
+        if (theUser) {
+            let result = await bcryptjs.compare(req.body.password, theUser.password)
+
+            if(!result) {
+                logger.error('Passwords do not match');
+                return res.status(404).json({ error: 'Wrong pasword' });
+            }
+
+            let payload = {
+                user: {
+                    id: theUser._id.toString(),
+                },
+            };
+
+            const userName = theUser.firstName;
+            const userEmail = theUser.email;
+            const authToken = jwt.sign(payload, JWT_SECRET);
+
+            logger.info('User logged in successfully');
+            return res.status(200).json({ authToken, userName, userEmail });
+        } else {
+            logger.error('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+    } catch (e) {
+        logger.error(e);
+        return res.status(500).json({ error: 'Internal server error', details: e.message });
     }
 });
 
