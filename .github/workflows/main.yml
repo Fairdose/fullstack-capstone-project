@@ -24,7 +24,7 @@ jobs:
         run: npm install jshint --global
 
       - name: Run Linter
-        run:
+        run: |
           find ./giftlink-backend -name app.js -exec jshint --nocomma {} +
           find ./giftlink-backend -name auth.js -exec jshint --nocomma {} +
           find ./giftlink-backend -name giftRoutes.js -exec jshint --nocomma {} +
