@@ -92,7 +92,7 @@ return (
                             <div className="no-image-available-large">No Image Available</div>
                         )}
                     </div>
-                        <!--Task 6: Display gift detail-->
+                        { /*Task 6: Display gift detail */ }
                     	<p><strong>Category:</strong>
                             {gift.category}
                         </p>
