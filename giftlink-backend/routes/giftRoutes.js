@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const router = express.Router()
-
 const connectToDatabase = require("../models/db");
 
 router.get('/', async (req, res) => {

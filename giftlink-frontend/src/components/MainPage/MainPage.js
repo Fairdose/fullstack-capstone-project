@@ -16,7 +16,7 @@ function MainPage() {
                 throw new Error(`Error fetching gifts; ${response.status}`);
             }
 
-            const gifts = response.json();
+            const gifts = await response.json();
 
             setGifts(gifts)
         }
@@ -27,7 +27,7 @@ function MainPage() {
     // Task 2: Navigate to details page
     const goToDetailsPage = (productId) => {
         // Write your code below this line
-        navigate(`/details/${productId}`);
+        navigate(`/app/product/${productId}`);
     };
 
     // Task 3: Format timestamp
@@ -45,7 +45,7 @@ function MainPage() {
     return (
         <div className="container mt-5">
             <div className="row">
-                {gifts.map((gift) => (
+                {gifts.length > 0 ? gifts.map((gift) => (
                     <div key={gift.id} className="col-md-4 mb-4">
                         <div className="card product-card">
 
@@ -84,7 +84,7 @@ function MainPage() {
                             </div>
                         </div>
                     </div>
-                ))}
+                )) : null}
             </div>
         </div>
     );

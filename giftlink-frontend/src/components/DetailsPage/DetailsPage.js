@@ -18,14 +18,16 @@ function DetailsPage() {
         }
 
         // get the gift to be rendered on the details page
-        const fetchGift = async ({productId}) => {
+        const fetchGift = async () => {
             try {
 				// Task 2: Fetch gift details
                 const response = await fetch(`${urlConfig.backendUrl}/api/gifts/${productId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+
                 const data = await response.json();
+
                 setGift(data);
             } catch (error) {
                 setError(error.message);
