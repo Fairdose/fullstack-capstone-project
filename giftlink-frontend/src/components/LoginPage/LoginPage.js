@@ -90,9 +90,9 @@ function LoginPage() {
                             <label htmlFor="password" className="form-label">Password</label>
                             <input
                                 id="password"
-                                type="text"
+                                type="password"
                                 className="form-control"
-                                placeholder="Enter your email"
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
